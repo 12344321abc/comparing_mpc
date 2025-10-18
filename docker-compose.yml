@@ -1,19 +1,13 @@
 services:
   worker1:
     build: .
-    command: python -m worker --rank 0 --world_size 3 call tasks.collective:all_gather
+    command: python -m worker --rank 0 --world_size 2 call tasks.collective:compare
     environment:
       - MASTER_ADDR=worker1
       - MASTER_PORT=29500
   worker2:
     build: .
-    command: python -m worker --rank 1 --world_size 3 call tasks.collective:all_gather
-    environment:
-      - MASTER_ADDR=worker1
-      - MASTER_PORT=29500
-  worker3:
-    build: .
-    command: python -m worker --rank 2 --world_size 3 call tasks.collective:all_gather
+    command: python -m worker --rank 1 --world_size 2 call tasks.collective:compare
     environment:
       - MASTER_ADDR=worker1
       - MASTER_PORT=29500
