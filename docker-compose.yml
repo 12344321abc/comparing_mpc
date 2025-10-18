@@ -5,9 +5,14 @@ services:
     environment:
       - MASTER_ADDR=worker1
       - MASTER_PORT=29500
+      - TTP_URL=${TTP_URL}
+    expose:
+      - "29500"
+
   worker2:
     build: .
     command: python -m worker --rank 1 --world_size 2 call tasks.collective:compare
     environment:
       - MASTER_ADDR=worker1
       - MASTER_PORT=29500
+      - TTP_URL=${TTP_URL}
